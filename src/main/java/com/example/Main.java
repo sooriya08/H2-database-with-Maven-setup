@@ -68,19 +68,24 @@ public class Main {
         }
     }
 
-    private static void viewCars(Connection conn) throws SQLException {
-        String sql = "SELECT * FROM car";
-        try (Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            System.out.println("\n--- Cars in DB ---");
-            while (rs.next()) {
-                System.out.printf("%d: %s -> %d%n",
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("price"));
-            }
+ private static void viewCars(Connection conn) throws SQLException {
+    String sql = "SELECT * FROM car";
+    try (Statement st = conn.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+
+        System.out.println("\n--- Cars in DB ---");
+        System.out.printf("%-5s %-20s %-10s%n", "ID", "Name", "Price");
+        System.out.println("------------------------------------------------");
+
+        while (rs.next()) {
+            System.out.printf("%-5d %-20s %-10d%n",
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getInt("price"));
         }
     }
+}
+
 
     private static void updateCar(Connection conn, Scanner scanner) throws SQLException {
         System.out.print("Enter car ID to update: ");
